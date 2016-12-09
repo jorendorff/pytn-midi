@@ -43,7 +43,9 @@ transform = config.transform.implementation(config.transform)
 out_stream = config.output.implementation(config.output)
 
 for message in in_stream:
-    out_stream.send(transform(message))
+    message = transform(message)
+    if message is not None:
+        out_stream.send(message)
 
 out_stream.close()
 
